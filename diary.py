@@ -3,21 +3,8 @@ from docxtpl import DocxTemplate
 import random
 import sqlite3
 import datetime
-#доработить fill_personal_data
 
 
-#plan before relise
-'''
-#добавить календарь
-#тестирование с изменным id 
-#заливка на сервер
-#print в файл
-#вынести отдельно проверку даты или тренировки
-#переделать проверку даты 
-#переделать проверку команды на выбор тренировки
-#добавить справку
-
-'''
 def print_f(*args):
 	output = open('log.txt', 'a')
 	now = datetime.datetime.now()
@@ -185,7 +172,7 @@ def change_state(ident, message):
 				('menu', ident))
 				return '0'
 			elif message == '/more':
-				if get_quantity_of_dates(ident) >= 4:
+				if get_quantity_of_dates(ident) >= 7:
 					cur.execute("""UPDATE students SET state = ? 
 					WHERE user_id = ?""", 
 					('menu', ident))
@@ -241,13 +228,13 @@ def get_quantity_of_dates(ident):
 def gen_diary_txt(ident):
 	#соединение с текстовым файлом
 	cnt = get_quantity_of_dates(ident)
-	file_name = 'template' + str(cnt) + '.docx'
+	file_name = 'templates/template' + str(cnt) + '.docx'
 	if cnt >= 1:
-		if cnt > 4:
-			cnt = 4
-		file_name = 'template' + str(cnt) + '.docx'
+		if cnt > 7:
+			cnt = 7
+		file_name = 'templates/template' + str(cnt) + '.docx'
 	else:
-		doc = DocxTemplate("template1.docx")
+		doc = DocxTemplate("templates/template1.docx")
 		context = {'name' : "", 'birth_day' : "", 'group' : "", 'weight' : '', 'height' : ''}
 
 		doc.render(context)
@@ -276,7 +263,7 @@ def gen_diary_txt(ident):
 
 		day_number = 1
 		for data_cortege in data:
-			if day_number >= 5:
+			if day_number > 7:
 				break
 			file_pl = 'date' + str(day_number)
 

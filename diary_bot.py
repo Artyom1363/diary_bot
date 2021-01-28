@@ -20,10 +20,10 @@ output = open('log.txt', 'a')
 #phys_bmstu
 #bot.send_message(556001234, "yes this is text")
 #1130614305
-bot.send_message(1130614305, 'Привет, пожалуйста, если '
+'''bot.send_message(556001234, 'Привет, пожалуйста, если '
 	'возникли какие-то проблемы, пожалуйста напиши мне: '
-	'https://vk.com/samkahochetsecsa (прости за ник)')
-bot.send_message(556001234, 'сообщение ушло')
+	'@htppkt')
+bot.send_message(556001234, 'сообщение ушло')'''
 
 
 @bot.message_handler(commands=["cal"])
@@ -188,7 +188,7 @@ def main_func(message, ident = None):
 			print_menu(user_id)
 
 		elif content == '/more':
-			if diary.get_quantity_of_dates(user_id) >= 4:
+			if diary.get_quantity_of_dates(user_id) >= 7:
 				bot.send_message(user_id, 'Вы ввели максимально '
 							'возможное кол-во дат, вот ваш дневник')
 				diary.gen_diary_txt(user_id)
@@ -212,6 +212,7 @@ def main_func(message, ident = None):
 		#del students_db[str(message.chat.id)]
 		bot.send_message(user_id, 'Простите, что-то пошло не так')
 		
+
 @bot.callback_query_handler(func=lambda call: call.data.startswith(calendar_1.prefix))
 def callback_inline(call: CallbackQuery):
     """
@@ -237,7 +238,7 @@ def callback_inline(call: CallbackQuery):
             text=str(date.strftime('%d.%m.%Y')),
             reply_markup=ReplyKeyboardRemove(),
         )
-        diary.print_f(call.from_user.id, date.strftime('%d.%m.%Y'))
+        #diary.print_f(call.from_user.id, date.strftime('%d.%m.%Y'))
         main_func(date.strftime('%d.%m.%Y'), call.from_user.id)
 
     elif action == "CANCEL":
